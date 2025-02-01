@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 00:19:48 by algaboya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:47:49 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/02/01 13:38:52 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	open_redir_out(t_shell *general, char *name, int append)
 	if (fd < 0)
 	{
 		error_msg(1, name);
-		// return (-1);
+		//return (-1);
 	}
 	return (fd);
 }
@@ -46,7 +46,7 @@ int	open_infile(t_shell *general, char *name)
 
 int	in_redir(t_cmd_lst *lst)
 {
-	if (lst->std_in == -1)
+	if (lst -> std_in == -1)
 		return (-1);
 	if (lst->std_in > 0)
 	{
@@ -63,7 +63,7 @@ int	in_redir(t_cmd_lst *lst)
 
 int	out_redir(t_cmd_lst *lst)
 {
-	if (lst->std_out == -1)
+	if (lst -> std_out == -1)
 		return (-1);
 	if (lst->std_out > 0)
 	{

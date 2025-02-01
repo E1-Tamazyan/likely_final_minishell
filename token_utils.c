@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:18:12 by etamazya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:49:11 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:14:32 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,16 @@ void	add_token_list(t_token **list, char *content, t_ttype type)
 
 t_token	*create_token(char *value, t_ttype type)
 {
+	// int		j;
 	t_token	*new;
 
-	// int		j;
 	// j = ft_strlen(value);
 	new = (t_token *)malloc(sizeof(t_token));
 	check_malloc(new);
 	if (value)
 		new->context = value;
 	else
-		new->context = NULL;
+		new -> context =NULL;
 	// new->context = my_substr(value, 0, j);
 	new->type = type;
 	new->next = NULL;

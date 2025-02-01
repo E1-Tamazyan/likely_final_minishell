@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 18:24:16 by etamazya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:48:43 by elen_t13         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:06:29 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,3 +85,41 @@ char	**sort_env(char **env)
 	quick_sort(env_clone, 0, i - 1);
 	return (env_clone);
 }
+
+// if will be need for the previous (sort_env) function to make clone for env param
+// char **clone_env(char **env)
+// {
+//     int i;
+//     int j;
+//      
+//     i = 0;
+//     j = 0;
+//     while (env[i])
+//         i++;
+//     char **clone = malloc((i + 1) * sizeof(char *));
+//     if (!clone)
+//         return NULL;
+//     while (j < i)
+//     {
+//         clone[j] = strdup(env[j]);
+//         if (!clone[j])
+//         {
+//             while (j > 0)
+//                 free(clone[--j]);
+//             free(clone);
+//             return NULL;
+//         }
+//      j++;
+//     }
+//     clone[i] = NULL;
+//     return clone;
+// }
+
+// char **sort_env(char **env)
+// {
+//     char **clone = clone_env(env);
+//     if (!clone)
+//         return NULL;
+//     quick_sort(clone, 0, i - 1);
+//     return (clone);
+// }

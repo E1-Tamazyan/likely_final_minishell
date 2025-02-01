@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:14:51 by etamazya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:44:16 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/01/26 23:41:15 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	free_array(char **arr)
 void	ft_strcpy(char *s1, const char *s2, int start, int len)
 {
 	int	i;
-
+ 
 	i = 0;
 	// printf("len = %d\n", len);
 	while (s2[start] && i < len)
@@ -105,8 +105,8 @@ void	ft_strcpy(char *s1, const char *s2, int start, int len)
 void	ft_strcpy_2(char *s1, const char *s2, int start, int len)
 {
 	int	i;
-
-	i = 0;
+ 
+	i = 0;	
 	// printf("****%d\n", len);
 	// printf("len = %d\n", len);
 	while (s2[i] && i < len)
@@ -129,12 +129,12 @@ void	ft_strcpy_3(char *s1, const char *s2, int start_s1, int start_s2)
 	s1[start_s1] = s2[start_s2];
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+  char	*ft_strjoin(char *s1, char *s2)
 {
-	char *res;
-	size_t len;
-	size_t i;
-	size_t j;
+	char	*res;
+	size_t	len;
+	size_t	i;
+	size_t	j;
 
 	len = ft_strlen(s1) + ft_strlen(s2);
 	res = (char *)malloc((len + 1) * sizeof(char));

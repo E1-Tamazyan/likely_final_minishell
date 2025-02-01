@@ -40,9 +40,8 @@ int	exit_builtin(t_shell *general)
 	write(2, "exit\n", 6);
 	if (is_valid(general->cmd_lst->args, count) == FAILURE_EXIT)
 		exit(exitik);
-	if (count > 3)
-		return (printf("minishell: exit: too many arguments\n"), FAILURE_EXIT);
+	if (count >= 3)
+		return (write(2, "minishell: exit: too many arguments\n", 36), FAILURE_EXIT);
 	set_exit_status(exit_statusik(general->cmd_lst->args[1]));
-	// free_general(general);
 	exit(get_exit_status());
 }

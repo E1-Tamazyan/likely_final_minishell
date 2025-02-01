@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_fts.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 11:39:24 by etamazya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:47:29 by elen_t13         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:03:56 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	printStrings(char **strs)
 	int	i;
 
 	i = 0;
-	if (!strs)
-		return ;
+	if (!strs) 
+		return;
 	while (strs[i] != NULL)
 	{
 		printf("%s\n", strs[i]);

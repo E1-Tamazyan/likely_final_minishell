@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_utils_4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 18:37:23 by etamazya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:44:27 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/01/26 23:33:44 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_token	*ft_lst_delone(t_token **lst, t_token *node)
 }
 void	list_add_back_cmd(t_cmd_lst **lst, t_cmd_lst *new)
 {
-	t_cmd_lst *add;
+	t_cmd_lst	*add;
 
 	add = *lst;
 	if (!new)

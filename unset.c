@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 19:32:50 by algaboya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:49:47 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:46:45 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+// full 5
 
-int	unset_builtin(t_shell *general) // char *arg
+// FIRST
+int	unset_builtin(t_shell *general)
 {
 	char	**new_args;
 	int		i;
@@ -24,17 +26,15 @@ int	unset_builtin(t_shell *general) // char *arg
 	while (new_args[i])
 	{
 		if (is_key_valid(general, new_args[i]))
-			return (printf("minisHell: unset: `%s': not a valid identifier\n",
-					new_args[i]), FAILURE_EXIT);
+			return (EXIT_SUCCESS);
 		else
-			return (unset_exp_var(general, new_args[i]));
+			return(unset_exp_var(general, new_args[i]));
 		i++;
 	}
-	// printf("kaxamb\n");
 	return (EXIT_SUCCESS);
 }
 
-int	is_key_valid(t_shell *general, char *key)
+int	is_key_valid(t_shell *general,char *key)
 {
 	t_env	*tmp;
 
@@ -45,7 +45,7 @@ int	is_key_valid(t_shell *general, char *key)
 			return (EXIT_SUCCESS);
 		tmp = tmp->next;
 	}
-	return (FAILURE_EXIT);
+	return(FAILURE_EXIT);
 }
 
 int	unset_exp_var(t_shell *general, char *new)
@@ -53,7 +53,6 @@ int	unset_exp_var(t_shell *general, char *new)
 	t_env	*tmp;
 
 	tmp = general->env_lst;
-	// print_env(tmp, 1);
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, new) == 0)
@@ -105,3 +104,6 @@ void	free_node(t_env *node)
 	free(node);
 	node = NULL;
 }
+
+// echo <"./test_files/infile" <missing <"./test_files/infile"
+// wrong exit status

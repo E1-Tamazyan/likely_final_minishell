@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:18:10 by elen_t13          #+#    #+#             */
-/*   Updated: 2025/02/01 14:37:08 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/02/01 13:40:51 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,55 +17,27 @@
 // ************************
 // 4 function
 
-// int check_cmd(char **env, t_shell *general)
-// {
-// 	// int		index;
-// 	// int		j;
-// 	t_token *tmp;
-
-// 	tmp = general->tok_lst;
-// 	(void)env;
-// 	while (tmp)
-// 	{
-// 		if (ft_strcmp((const char *)tmp->context, "env") == 0)
-// 			return (export_builtin(general, tmp->context), 0);
-// 		else if (ft_strcmp((const char *)tmp->context, "export") == 0)
-// 			return (export_builtin(general, tmp->context), 0); // 1 error
-// 		else if (ft_strcmp((const char *)tmp->context, "pwd") == 0)
-// 			return (pwd_builtin(general), 0);
-// 		else if (ft_strcmp((const char *)tmp->context, "cd") == 0)
-// 			return (cd_builtin(general), 0);
-// 		else if (ft_strcmp((const char *)tmp->context, "unset") == 0)
-// 			return (unset_builtin(general), 0);
-// 		// else if (ft_strcmp((const char *)tmp->context, "echo") == 0)
-// 		// 	return (echo_builtin(general), 0);
-// 		else if (ft_strcmp((const char *)tmp->context, "exit") == 0)
-// 			return (exit_builtin(general), 0);
-// 		tmp = tmp->next;
-// 	}
-// 	return (0);
-// }
-
-char	*sgmnt_cpy(char *input, int *i)
+// changed
+char *sgmnt_cpy(char *input, int *i)
 {
-	char	*result;
-	int		j;
-	int		length;
+	char *result;
+	int j;
+	int len;
 
-	length = 0;
+	len = 0;
 	if (input[*i] == '?')
-		length++;
+		len++;
 	else
 	{
-		while (input[*i + length] && input[*i + length] != ' ' && input[*i
-			+ length] != '"')
-			length++;
+		while (input[*i + len] && input[*i + len] != ' ' && input[*i + len] != '$'
+		&& input[*i + len] != '"' && input[*i + len] != '\'')
+			len++;
 	}
-	result = (char *)malloc((length + 1) * sizeof(char));
+	result = (char *)malloc((len + 1) * sizeof(char));
 	check_malloc(result);
 	j = 0;
-	while (input[*i] && input[*i] != ' ' && input[*i] != '$'
-		&& input[*i] != '\"' && input[*i] != '\'')
+	while (input[*i] && input[*i] != ' ' && input[*i] != '$' && input[*i] != '\"'
+	 && input[*i] != '\'' && j < len)
 	{
 		result[j++] = input[*i];
 		(*i)++;
@@ -75,16 +47,12 @@ char	*sgmnt_cpy(char *input, int *i)
 }
 // echo ba"rev $USER$USER jan" vonc es
 
-char	*open_dollar(t_shell *general, char *input, int *i, int start)
+char *open_dollar(t_shell *general, char *input, int *i, int start)
 {
 	(void)start;
 	if (input[*i] && input[*i] == '$')
 	{
 		(*i)++;
-		// if (input[*i] == '?' && !input[*i + 1])
-		// {
-		// 		general->doll_lst->value = ft_itoa(get_exit_status());
-		// }
 		general->doll_lst->u_key = sgmnt_cpy(input, i);
 		if (!general->doll_lst->u_key[0])
 		{
@@ -94,8 +62,7 @@ char	*open_dollar(t_shell *general, char *input, int *i, int start)
 			general->doll_lst->value[1] = '\0';
 		}
 		else
-			general->doll_lst->value = check_env_var(general->env_lst,
-					general->doll_lst->u_key);
+			general->doll_lst->value = check_env_var(general->env_lst, general->doll_lst->u_key);
 		if (!general->doll_lst->value)
 		{
 			general->doll_lst->value = (char *)malloc(sizeof(char) * 1);
@@ -106,10 +73,10 @@ char	*open_dollar(t_shell *general, char *input, int *i, int start)
 	return (general->doll_lst->value);
 }
 
-int	check_inp_quotes(t_shell *general, char *input, int i, int start)
+int check_inp_quotes(t_shell *general, char *input, int i, int start)
 {
-	int	flag_sg;
-	int	flag_db;
+	int flag_sg;
+	int flag_db;
 
 	flag_sg = 0;
 	flag_db = 0;

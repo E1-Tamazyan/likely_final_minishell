@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:11:43 by etamazya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:44:12 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:13:13 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_strlen(const char *str)
 		return (-1);
 	while (str[i])
 	{
-		// printf("str[i] = %c\n", str[i]);
+		// printf("str[i] = %c\n", str[i]);	
 		i++;
 	}
 	return (i);
@@ -96,8 +96,8 @@ char	*ft_substr(char const *s, unsigned int start, int len)
 
 char	*ft_strdup(const char *s1)
 {
-	size_t i;
-	char *s1_dup;
+	size_t	i;
+	char	*s1_dup;
 
 	i = 0;
 	s1_dup = (char *)malloc(ft_strlen(s1) + 1);

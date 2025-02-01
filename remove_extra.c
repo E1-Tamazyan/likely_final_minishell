@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   remove_extra.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:48:10 by algaboya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:48:18 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/01/26 22:48:22 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*remove_quoted_positions(char *str, int *indexes, int index_count,
-		int len)
+static char *remove_quoted_positions(char *str, int *indexes, int index_count, int len)
 {
-	int		i;
-	int		j;
-	char	*res;
-	int		skip;
-	int		k;
+	int i;
+	int j;
+	char *res;
+	int skip;
+	int k;
 
 	res = malloc(len - index_count + 1);
 	check_malloc(res);
@@ -34,7 +33,7 @@ static char	*remove_quoted_positions(char *str, int *indexes, int index_count,
 			if (indexes[k] == i)
 			{
 				skip = 1;
-				break ;
+				break;
 			}
 			k++;
 		}
@@ -47,10 +46,11 @@ static char	*remove_quoted_positions(char *str, int *indexes, int index_count,
 	return (res);
 }
 
-static char	*remove_outer_quotes(t_shell *general, char *str, int i, int i_c)
+
+static char *remove_outer_quotes(t_shell *general, char *str, int i, int i_c)
 {
-	int	len;
-	int	*indexes;
+	int len;
+	int *indexes;
 
 	len = ft_strlen(str);
 	indexes = ft_calloc(len, sizeof(int));
@@ -75,18 +75,18 @@ static char	*remove_outer_quotes(t_shell *general, char *str, int i, int i_c)
 	return (free(indexes), str);
 }
 
-t_token	*remove_extra_quotes(t_shell *general)
+
+t_token *remove_extra_quotes(t_shell *general)
 {
-	t_token	*head;
+	t_token *head;
 
 	head = general->tok_lst;
 	general->db_quote = 0;
 	general->sg_quote = 0;
 	while (general->tok_lst != NULL)
 	{
-		general->tok_lst->context = remove_outer_quotes(general,
-				general->tok_lst->context, 0, 0);
-		// printf("Token context after removing quotes: -->%s<--\n",
+		general->tok_lst->context = remove_outer_quotes(general, general->tok_lst->context, 0, 0);
+		// printf("Token context after removing quotes: -->%s<--\n", general->tok_lst->context);
 		general->tok_lst = general->tok_lst->next;
 	}
 	general->tok_lst = head;

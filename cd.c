@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:33:37 by algaboya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:36:20 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/02/01 01:39:12 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	my_error(char *cmd, char *error, int status)
+void my_error(char *cmd, char *error, int status)
 {
 	set_exit_status(status);
 	ft_putstr_fd("minisHell: ", 2);
@@ -25,7 +25,7 @@ void	my_error(char *cmd, char *error, int status)
 	ft_putstr_fd("\n", 2);
 }
 
-int	cd_builtin(t_shell *general, t_cmd_lst *temp_cmd_lst)
+int	cd_builtin(t_shell *general,t_cmd_lst *temp_cmd_lst)
 {
 	int		status;
 	char	*cwd;
@@ -33,13 +33,12 @@ int	cd_builtin(t_shell *general, t_cmd_lst *temp_cmd_lst)
 
 	cwd = getcwd(NULL, 0);
 	status = SUCCESS_EXIT;
-	if (count_args(temp_cmd_lst->args) >= 2)
-		return (my_error("cd", "too many arguments", EXIT_FAILURE),
-			EXIT_FAILURE);
+	if (count_args(temp_cmd_lst->args) > 2)
+		return (my_error("cd", "too many arguments", EXIT_FAILURE), EXIT_FAILURE);
 	if (!temp_cmd_lst->args[1])
 		status = change_home(general);
-	else if (temp_cmd_lst->args[1] && ft_strcmp(temp_cmd_lst->args[1],
-			"-") == 0)
+	else if (temp_cmd_lst->args[1] \
+		&& ft_strcmp(temp_cmd_lst->args[1], "-") == 0)
 		status = change_prev_dir(general);
 	else if (temp_cmd_lst->args[1])
 		status = change_dir(temp_cmd_lst->args[1]);
@@ -59,13 +58,15 @@ int	cd_builtin(t_shell *general, t_cmd_lst *temp_cmd_lst)
 
 int	change_dir(char *dir)
 {
-	int	status;
+	int		status;
 
 	status = chdir(dir);
 	if (status != 0)
 	{
-		printf(" cd: %s: No such file or directory\n", dir);
-		return (FAILURE_EXIT);
+		write(2, "cd: ", 4);
+        write(2, dir, ft_strlen(dir));
+        write(2, ": No such file or directory\n", 28);
+        return FAILURE_EXIT;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -76,12 +77,11 @@ int	change_home(t_shell *general)
 
 	home = get_value(general, "HOME");
 	if (!home)
-		return (write(STDERR_FILENO, "HOME is not set",
-				ft_strlen("HOME is not set")));
+		return (write(STDERR_FILENO, "HOME is not set", ft_strlen("HOME is not set")));
 	else if (chdir(home) < 0)
 	{
 		perror("cd: ");
-		return (errno);
+		return errno;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -97,7 +97,7 @@ int	change_prev_dir(t_shell *general)
 	else if (chdir(prev) < 0)
 	{
 		msg = strerror(errno);
-		return (write(STDERR_FILENO, msg, ft_strlen(msg)));
+		return write(STDERR_FILENO, msg, ft_strlen(msg));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -135,6 +135,23 @@ int	change_env_value(t_env *lst, char *keyik, char *valik)
 	}
 	return (EXIT_SUCCESS);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // int	cd_builtin(t_shell *general)
 // {

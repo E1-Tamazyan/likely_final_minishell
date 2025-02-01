@@ -1,4 +1,4 @@
-prefix=/home/algaboya/Desktop/me_arm/libraries/readline
+prefix=/Users/tumolabs/Desktop/joined_minishell/libraries/readline
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

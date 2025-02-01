@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:45:48 by etamazya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:44:43 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:07:53 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 // *** WARNING *** FULL ***
 // ************************
 // **5 functions already **
+
+// t_env	*ft_lstnew(char *context) // contains blabla = blabla=bla
+// {
+// 	int	pos;
+// 	t_env	*node;
+
+// 	node = malloc(sizeof(t_env));
+// 	check_malloc(node);
+// 	pos = put_key(node, context);	
+// 	put_value(node, context, pos);
+// 	node -> next = NULL;
+// 	return (node);
+// }
 
 t_env	*my_lstnew(char *key, char *value) // contains blabla = blabla=bla
 {
@@ -41,8 +54,13 @@ void	ft_lstadd_back(t_env *lst, t_env *node)
 		return ;
 	}
 	current = lst;
+	// printf("mine_env %s%s\n", node->key, node->value);
 	while (current -> next)
 		current = current -> next;
+	// printf("%s\n", current->key);
+	// printf("%s\n", current->value);
+	// printf("%s\n", node->key);
+	// printf("%s\n", node->value);
 	current->next = node;
 }
 
@@ -77,3 +95,11 @@ int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (0);
 }
+
+// int	ft_isalnum(int i)
+// {
+// 	if ((i >= '0' && i <= '9') || (i >= 'a' && i <= 'z')
+// 		|| (i >= 'A' && i <= 'Z'))
+// 		return (1);
+// 	return (0);
+// }

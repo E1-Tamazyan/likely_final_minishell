@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 21:57:54 by algaboya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:37:50 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/02/01 00:42:47 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ int	count_commands(t_token *token)
 	return (num);
 }
 
-int	is_redir(t_ttype type)
+int is_redir(t_ttype type)
 {
-	if (type == REDIR_APPEND || type == REDIR_HEREDOC || type == REDIR_IN
-		|| type == REDIR_OUT)
+	if (type == REDIR_APPEND || type == REDIR_HEREDOC || type == REDIR_IN || type == REDIR_OUT)
 		return (1);
 	return (0);
 }
-void	fill_commands(t_shell *general)
+void fill_commands(t_shell *general)
 {
 	t_token	*temp;
-	int		count;
+	int count;
 
 	count = 0;
 	if (general->curr_tok->type == WORD)
@@ -57,7 +56,8 @@ void	fill_commands(t_shell *general)
 	}
 }
 
-static void	handle_redirection(t_shell *g, t_ttype type)
+
+static void handle_redirection(t_shell *g, t_ttype type)
 {
 	if (g->curr_tok->next)
 	{
@@ -67,27 +67,27 @@ static void	handle_redirection(t_shell *g, t_ttype type)
 			if (g->curr_cmd->red_out)
 				free_set_null(g->curr_cmd->red_out);
 			g->curr_cmd->red_out = ft_strdup(g->curr_tok->context);
-			g->curr_cmd->std_out = open_redir_out(g, g->curr_cmd->red_out, 0);
+			g->curr_cmd -> std_out = open_redir_out(g, g->curr_cmd -> red_out, 0);
 		}
 		else if (type == REDIR_IN)
 		{
-			if (g->curr_cmd->red_in)
+			if (g->curr_cmd -> red_in)
 				free_set_null(g->curr_cmd->red_in);
 			g->curr_cmd->red_in = ft_strdup(g->curr_tok->context);
-			g->curr_cmd->std_in = open_infile(g, g->curr_cmd->red_in);
+			g->curr_cmd -> std_in = open_infile(g, g->curr_cmd -> red_in);
+
 		}
 		else if (type == REDIR_APPEND)
 		{
 			if (g->curr_cmd->red_append)
 				free_set_null(g->curr_cmd->red_append);
 			g->curr_cmd->red_append = ft_strdup(g->curr_tok->context);
-			g->curr_cmd->std_out = open_redir_out(g, g->curr_cmd->red_append,
-					1);
+			g->curr_cmd -> std_out = open_redir_out(g, g->curr_cmd -> red_append, 1);
 		}
 		else if (type == REDIR_HEREDOC)
 		{
-			if (g->curr_cmd->heredoc)
-				free_set_null(g->curr_cmd->heredoc);
+			if (g ->curr_cmd -> heredoc)
+				free_set_null(g ->curr_cmd -> heredoc);
 			g->curr_cmd->heredoc = ft_strdup(g->curr_tok->context);
 			execute_heredoc(g, g->curr_cmd);
 		}
@@ -95,7 +95,7 @@ static void	handle_redirection(t_shell *g, t_ttype type)
 	}
 }
 
-static void	handle_word(t_shell *g, int *j)
+static void handle_word(t_shell *g, int *j)
 {
 	g->curr_cmd->args[*j] = ft_strdup(g->curr_tok->context);
 	(*j)++;
@@ -104,14 +104,14 @@ static void	handle_word(t_shell *g, int *j)
 
 // static void process_tokens(t_shell *g)
 // {
-// 		int j = 0;
+// 	 int j = 0;
 
 // 	while (g->curr_tok && g->curr_tok->context)
 // 	{
 // 		if (g->curr_tok->type == PIPE)
 // 		{
 // 			g->curr_tok = g->curr_tok->next;
-// 			break ;
+// 			break;
 // 		}
 // 		else if (g->curr_tok->next && is_redir(g->curr_tok -> type))
 // 		{
@@ -124,54 +124,53 @@ static void	handle_word(t_shell *g, int *j)
 // }
 static int	args_count(t_token *tmp)
 {
-	int	count;
+	int		count;
+	//t_token	*tmp;
 
-	// t_token	*tmp;
 	count = 0;
-	while (tmp && (tmp->type != PIPE))
+	while (tmp && (tmp -> type != PIPE))
 	{
-		if (is_redir(tmp->type))
+		if (is_redir(tmp -> type))
 		{
-			if (tmp->next)
-				tmp = tmp->next;
+			if (tmp -> next)
+				tmp = tmp -> next;
 			else
 				break ;
-			if (tmp->next)
-				tmp = tmp->next;
+			if (tmp -> next)
+				tmp = tmp -> next;
 			else
 				break ;
 		}
 		else
 		{
 			count++;
-			tmp = tmp->next;
+			tmp = tmp -> next;
 		}
 	}
 	return (count);
 }
 
-int	check_fill_commands(t_shell *g)
+int check_fill_commands(t_shell *g)
 {
-	int	j;
+	int j;
 
 	j = 0;
-	while (g->curr_cmd && g->curr_tok) // echo < 123 hi
+	while (g -> curr_cmd && g->curr_tok)//echo < 123 hi
 	{
 		j = 0;
 		fill_commands(g);
-		g->curr_cmd->args = malloc(sizeof(char *) * (args_count(g->curr_tok)
-					+ 1)); // check malloc
+		g->curr_cmd->args = malloc(sizeof(char *) * (args_count(g->curr_tok) + 1));//check malloc
 		g->curr_cmd->args[args_count(g->curr_tok)] = NULL;
 		while (g->curr_tok && g->curr_tok->type != PIPE)
 		{
-			if (g->curr_tok->next && is_redir(g->curr_tok->type))
+			if (g->curr_tok->next && is_redir(g->curr_tok -> type))
 				handle_redirection(g, g->curr_tok->type);
 			else if (g->curr_tok && g->curr_tok->type == WORD)
 				handle_word(g, &j);
 		}
 		if (g->curr_tok)
-			g->curr_tok = g->curr_tok->next;
-		g->curr_cmd = g->curr_cmd->next;
+			g->curr_tok = g->curr_tok -> next;
+		g->curr_cmd = g->curr_cmd -> next;
 	}
 	// while (g->curr_tok && i++ < g->pipe_count + 1)
 	// {
@@ -185,7 +184,8 @@ int	check_fill_commands(t_shell *g)
 	return (EXIT_SUCCESS);
 }
 
-int	create_cmd_lst(t_shell *g)
+
+int create_cmd_lst(t_shell *g)
 {
 	t_cmd_lst	*new;
 	int			i;

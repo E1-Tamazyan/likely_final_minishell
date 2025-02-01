@@ -1,14 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mini_utils.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 15:29:05 by etamazya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:46:33 by elen_t13         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// /* ************************************************************************** */
+// /*                                                                            */
+// /*                                                        :::      ::::::::   */
+// /*   mini_utils.c                                       :+:      :+:    :+:   */
+// /*                                                    +:+ +:+         +:+     */
+// /*   By: etamazya <etamazya@student.42.fr>          +#+  +:+       +#+        */
+// /*                                                +#+#+#+#+#+   +#+           */
+// /*   Created: 2024/08/12 15:29:05 by etamazya          #+#    #+#             */
+// /*   Updated: 2024/09/18 22:21:25 by etamazya         ###   ########.fr       */
+// /*                                                                            */
+// /* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -16,20 +16,20 @@
 // *** WARNING *** FULL ***
 // ************************
 
-// 5 ->6 functions already
+//5 ->6 functions already
 
-int	put_key(t_env *node, char *src)
+int	put_key(t_env *node, char	*src)
 {
 	int	j;
 
 	j = 0;
 	while (src[j] && src[j] != '=')
-		j++;
-	node->key = (char *)malloc(sizeof(char) * (j + 1));
-	if (!node->key)
+			j++;
+	node -> key = (char *)malloc(sizeof(char) * (j + 1));
+	if (!node-> key)
 		return (-1);
-	ft_strlcpy(node->key, (const char *)src, j, 0, '=');
-	if (!node->key)
+	ft_strlcpy(node-> key, (const char *)src, j, 0, '=');
+	if (!node-> key)
 		return (-1);
 	return (j + 1);
 }
@@ -44,14 +44,14 @@ void	put_value(t_env *node, char *src, int pos)
 		node->value = NULL;
 		return ;
 	}
-	len = sgmnt_len((const char *)src, pos);
+	len = sgmnt_len((const char *)src, pos); // len-y talis e minchev '\n', '\n'-y neraryal
 	if (len == -1)
 		return ;
-	node->value = (char *)malloc(sizeof(char) * (len + 1));
-	if (!node->value)
+	node -> value = (char *)malloc(sizeof(char) * (len + 1)); //check thisss \n-i poxaren dnum enq \0
+	if (!node -> value)
 		return ;
-	ft_strlcpy(node->value, src, len, pos, '\n');
-	if (!node->value)
+	ft_strlcpy(node -> value, src, len, pos, '\n');
+	if (!node -> value)
 		return ;
 }
 
@@ -85,9 +85,12 @@ void	clean_list(t_token **list)
 	*list = NULL;
 }
 
+// ************************
+// ******* FUR MICH *******
+// ************************
 void	print_tokens(t_token *head)
 {
-	t_token	*current;
+	t_token *current; 
 
 	current = head;
 	while (current != NULL)
@@ -95,14 +98,15 @@ void	print_tokens(t_token *head)
 		printf("context: %s\n type: %d\n", current->context, current->type);
 		current = current->next;
 	}
-}
+} 
 
 int	print_export(char *new)
 {
-	int	j;
+	int		j;
 
 	j = 0;
-	write(1, "declare -x ", ft_strlen("declare -x "));
+	// printf("sxtorik\n");
+	printf("declare -x ");
 	while (new[j++] != '=')
 	{
 		j--;
@@ -111,7 +115,10 @@ int	print_export(char *new)
 	}
 	if (new[j] == '\0')
 	{
-		printf("\n");
+		// if (k == 0)
+			printf("\n");
+		// else
+		// 	printf("=\n");
 		return (1);
 	}
 	printf("=\"");
@@ -123,7 +130,19 @@ int	print_export(char *new)
 	return (0);
 }
 
-void	swap_node(t_env *a, t_env *b)
+// void	print_exp_noargs(char *str)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while (str[i] != '=' && str[i++] != '\0')
+// 	{
+// 		printf("declare -x %c", str[i]);
+// 		i++;
+// 	}
+// }
+
+void	swap_node(t_env	*a, t_env *b)
 {
 	char	*tmp_key;
 	char	*tmp_value;
@@ -166,25 +185,29 @@ t_env	*bubble_sort_lst(t_env *lst)
 
 void	print_env(t_env *new, int flag)
 {
-	t_env	*lst;
-
-	lst = bubble_sort_lst(new);
+	t_env *lst = bubble_sort_lst(new);
+	// dprintf(2,"print\n");
 	while (lst != NULL)
 	{
 		if (flag == 1)
 		{
-			if (lst->value == NULL)
-				printf("declare -x %s\n", lst->key);
+			if (lst -> value == NULL)
+				printf("declare -x %s\n", lst -> key);
 			else
-				printf("declare -x %s=\"%s\"\n", lst->key, lst->value);
+				printf("declare -x %s=\"%s\"\n", lst -> key, lst -> value);
 		}
 		else
 		{
-			if (lst->value == NULL)
-				printf("%s\n", lst->key);
+			if (lst -> value == NULL)
+				printf("%s\n", lst -> key);
 			else
-				printf("%s=%s\n", lst->key, lst->value);
+				printf("%s=%s\n", lst -> key, lst -> value);
 		}
 		lst = lst->next;
 	}
 }
+
+
+// ************************
+// ******* FUR MICH *******
+// ************************

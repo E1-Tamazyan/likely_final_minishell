@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elen_t13 <elen_t13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 20:21:20 by algaboya          #+#    #+#             */
-/*   Updated: 2025/02/01 14:43:03 by elen_t13         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:05:31 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// void	free_cmd_lst(t_cmd_lst *cmd_lst)
+// {
+// 	t_cmd_lst	*temp;
+// 	int			i;
+
+// 	i = 0;
+// 	temp = NULL;
+// 	while (cmd_lst)
+// 	{
+// 		temp = cmd_lst;
+// 		free(temp->cmd);
+// 		if (temp->args)
+// 		{
+// 			while (temp->args[i])
+// 			{
+// 				free(temp->args[i]);
+// 				i++;
+// 			}
+// 			free(temp->args);
+// 		}
+// 		free(temp);
+// 		cmd_lst = cmd_lst->next;
+// 	}
+//     free(cmd_lst);
+//     cmd_lst = NULL;
+// }
 
 void	free_cmd_lst(t_cmd_lst **cmd_lst)
 {
@@ -18,7 +45,7 @@ void	free_cmd_lst(t_cmd_lst **cmd_lst)
 	int			i;
 
 	if (!cmd_lst || !*cmd_lst)
-		return ;
+		return;
 	while (*cmd_lst)
 	{
 		temp = *cmd_lst;
@@ -44,24 +71,25 @@ void	free_cmd_lst(t_cmd_lst **cmd_lst)
 	*cmd_lst = NULL;
 }
 
-void	free_tok_lst(t_token *tok_lst)
-{
-	t_token	*tmp;
 
-	while (tok_lst)
-	{
-		tmp = tok_lst;
-		if (tmp->context)
-		{
-			free(tmp->context);
-			tmp->context = NULL;
-		}
-		free(tmp);
+void    free_tok_lst(t_token *tok_lst)
+{
+    t_token *tmp;
+
+    while (tok_lst)
+    {
+        tmp = tok_lst;
+        if (tmp->context)
+        {
+            free(tmp->context);
+            tmp->context = NULL;
+        }
+        free(tmp);
 		tok_lst = tok_lst->next;
-		write(1, "FREE TOK\n", 9);
-	}
-	free(tok_lst);
-	tok_lst = NULL;
+        write(1, "FREE TOK\n", 9);
+    }
+    free(tok_lst);
+    tok_lst = NULL;
 }
 
 void	free_env_lst(t_env *env_lst)
